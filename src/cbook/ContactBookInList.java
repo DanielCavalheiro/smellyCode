@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Iterator;
+
 import exceptions.ContactAlreadyExistsException;
 import exceptions.ContactDoesNotExistException;
 
@@ -45,7 +46,7 @@ public class ContactBookInList implements ContactBook {
         else
             throw new ContactDoesNotExistException();
     }
-
+    
     @Override
     public int getPhone(String name) throws ContactDoesNotExistException {
         if (hasContact(name))

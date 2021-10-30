@@ -1,5 +1,7 @@
 package cbook;
 
+import java.util.Objects;
+
 /**
  * By removing the public visibility, this class is no longer visible outside the package
  */
@@ -7,7 +9,7 @@ class ContactClass implements Contact {
     /**
      * Contact name.
      */
-    private String name;
+    private final String name;
 
     /**
      * Contact phone number.
@@ -17,7 +19,7 @@ class ContactClass implements Contact {
     /**
      * Contact the email address.
      */
-    public String email;
+    private String email;
 
     /**
      * Default constructor
@@ -30,7 +32,7 @@ class ContactClass implements Contact {
 
     /**
      * Constructor with just the name. Leaves the phone number at 0, and the email address to null.
-     * @param name
+     * @param name of the contact
      */
     public ContactClass(String name) {
         this(name, 0, null);
@@ -72,10 +74,14 @@ class ContactClass implements Contact {
         Contact other = (Contact) obj;
 
         if (name == null) {
-            if (other.getName() != null) return false;
-            else return true;
+            return other.getName() == null;
         }
         else return name.equals(other.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, phone, email);
     }
 
     @Override
