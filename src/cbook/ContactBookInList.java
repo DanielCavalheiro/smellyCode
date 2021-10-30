@@ -2,6 +2,7 @@ package cbook;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Iterator;
 import exceptions.ContactAlreadyExistsException;
 import exceptions.ContactDoesNotExistException;
@@ -48,7 +49,7 @@ public class ContactBookInList implements ContactBook {
     @Override
     public int getPhone(String name) throws ContactDoesNotExistException {
         if (hasContact(name))
-            return this.getContact(name).getPhone();
+            return Objects.requireNonNull(this.getContact(name)).getPhone();
         else
             throw new ContactDoesNotExistException();
     }
@@ -56,7 +57,7 @@ public class ContactBookInList implements ContactBook {
     @Override
     public String getEmail(String name) throws ContactDoesNotExistException {
         if (hasContact(name))
-            return this.getContact(name).getEmail();
+            return Objects.requireNonNull(this.getContact(name)).getEmail();
         else
             throw new ContactDoesNotExistException();
     }
@@ -64,7 +65,7 @@ public class ContactBookInList implements ContactBook {
     @Override
     public void setPhone(String name, int phone) throws ContactDoesNotExistException {
         if (hasContact(name))
-            this.getContact(name).setPhone(phone);
+            Objects.requireNonNull(this.getContact(name)).setPhone(phone);
         else
             throw new ContactDoesNotExistException();
     }
@@ -72,7 +73,7 @@ public class ContactBookInList implements ContactBook {
     @Override
     public void setEmail(String name, String email) throws ContactDoesNotExistException {
         if (hasContact(name))
-            this.getContact(name).setEmail(email);
+            Objects.requireNonNull(this.getContact(name)).setEmail(email);
         else
             throw new ContactDoesNotExistException();
     }
