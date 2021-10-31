@@ -1,17 +1,16 @@
 package app;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import cbook.Contact;
 import cbook.ContactBook;
 import cbook.ContactBookInList;
 import exceptions.ContactAlreadyExistsException;
 import exceptions.ContactDoesNotExistException;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
- * Main program for the application ContactBook.
+ * app.Main program for the application ContactBook.
  */
 public class Main {
     private static final String NOT_A_VALID_PHONE_NUMBER = "Not a valid phone number.";
@@ -22,6 +21,7 @@ public class Main {
     public static final String CONTACT_REMOVED = "Contact removed.";
     public static final String CONTACT_UPDATED = "Contact updated.";
     public static final String BOOK_EMPTY = "Contact book empty.";
+    public static final String ERROR = "Unknown command.";
     public static final String EXIT = "Goodbye!";
 
     // Enumeration for defining Commands
@@ -32,7 +32,7 @@ public class Main {
 
         private final String commandInputName;
 
-         Command(String commandInputName) {
+        Command(String commandInputName) {
             this.commandInputName = commandInputName;
         }
 
@@ -42,7 +42,8 @@ public class Main {
     }
 
     /**
-     * Main program. Runs the command interpreter.
+     * app.Main program. Runs the command interpreter.
+     *
      * @param args - arguments for executing the program. Not used in this program.
      */
     public static void main(String[] args) {
@@ -56,7 +57,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         ContactBook cBook = new ContactBookInList();
         Command comm = readCommand(in);
-        while (!comm.equals(Command.QUIT)){
+        while (!comm.equals(Command.QUIT)) {
             switch (comm) {
                 case ADD_CONTACT -> addContact(in, cBook);
                 case REMOVE_CONTACT -> deleteContact(in, cBook);
@@ -65,8 +66,7 @@ public class Main {
                 case SET_PHONE -> setPhone(in, cBook);
                 case SET_EMAIL -> setEmail(in, cBook);
                 case LIST_CONTACTS -> listAllContacts(cBook);
-                default -> {
-                }
+                default -> System.out.println(ERROR);
             }
             System.out.println();
             comm = readCommand(in);
@@ -78,20 +78,22 @@ public class Main {
 
     /**
      * Reads a new command to execute.
+     *
      * @param in input from where data is read.
      */
     private static Command readCommand(Scanner in) {
         String input = in.nextLine().toUpperCase().trim();
-        for (Command c :Command.values())
+        for (Command c : Command.values())
             if (c.getCommandInputName().equals(input))
                 return c;
         return Command.UNKNOWN_COMMAND;
     }
 
     /**
-     * Adds a new contact, if it dose not exist. If it already exists, this
+     * Adds a new contact, if it does not exist. If it already exists, this
      * does nothing
-     * @param in input from which data is read
+     *
+     * @param in    input from which data is read
      * @param cBook ContactBook in which we want to add a new contact
      */
     private static void addContact(Scanner in, ContactBook cBook) {
@@ -113,7 +115,8 @@ public class Main {
 
     /**
      * Removes a contact, if it exists. Otherwise, does nothing.
-     * @param in input from which data will be read.
+     *
+     * @param in    input from which data will be read.
      * @param cBook ContactBook in which one wants to remove the contact.
      */
     private static void deleteContact(Scanner in, ContactBook cBook) {
@@ -129,7 +132,8 @@ public class Main {
 
     /**
      * Gets the phone number of a contact, if it exists. Otherwise, it does nothing.
-     * @param in input from which data will be read.
+     *
+     * @param in    input from which data will be read.
      * @param cBook ContactBook from which we want to fetch the phone number.
      */
     private static void getPhone(Scanner in, ContactBook cBook) {
@@ -144,7 +148,8 @@ public class Main {
 
     /**
      * Gets the email address of a contact, if it exists. Otherwise, it does nothing.
-     * @param in input from which data will be read.
+     *
+     * @param in    input from which data will be read.
      * @param cBook ContactBook from which we want to fetch the email address.
      */
     private static void getEmail(Scanner in, ContactBook cBook) {
@@ -159,33 +164,40 @@ public class Main {
 
     /**
      * Updates the phone number of a contact, if it exists. Otherwise, does nothing.
-     * @param in input from which data will be read.
+     *
+     * @param in    input from which data will be read.
      * @param cBook ContactBook where we want to update the phone number.
      */
     private static void setPhone(Scanner in, ContactBook cBook) {
         try {
             String name;
-            int phone;
             name = in.nextLine();
-            try {
-                phone = in.nextInt();
-                in.nextLine();
-                cBook.setPhone(name, phone);
-                System.out.println(Main.CONTACT_UPDATED);
-            } catch (InputMismatchException e) {
-                in.nextLine();
-                System.out.println(Main.NOT_A_VALID_PHONE_NUMBER);
-            } catch (ContactDoesNotExistException e) {
-                System.out.println(Main.NAME_NOT_EXIST);
-            }
+            setPhoneExcept(in, name, cBook);
+
         } catch (InputMismatchException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    private static void setPhoneExcept(Scanner in, String name, ContactBook cBook) {
+        try {
+            int phone;
+            phone = in.nextInt();
+            in.nextLine();
+            cBook.setPhone(name, phone);
+            System.out.println(Main.CONTACT_UPDATED);
+        } catch (InputMismatchException e) {
+            in.nextLine();
+            System.out.println(Main.NOT_A_VALID_PHONE_NUMBER);
+        } catch (ContactDoesNotExistException e) {
+            System.out.println(Main.NAME_NOT_EXIST);
+        }
+    }
+
     /**
      * Updates the contact email, if it exists. Otherwise, does nothing.
-     * @param in input from which data will be read.
+     *
+     * @param in    input from which data will be read.
      * @param cBook ContactBook in which we want to update the email address.
      */
     private static void setEmail(Scanner in, ContactBook cBook) {
@@ -194,7 +206,7 @@ public class Main {
         name = in.nextLine();
         email = in.nextLine();
         try {
-            cBook.setEmail(name,email);
+            cBook.setEmail(name, email);
             System.out.println(Main.CONTACT_UPDATED);
         } catch (ContactDoesNotExistException e) {
             System.out.println(Main.NAME_NOT_EXIST);
@@ -203,14 +215,14 @@ public class Main {
 
     /**
      * Lists all contacts.
+     *
      * @param cBook ContactBook from which we want to list all contacts.
      */
     private static void listAllContacts(ContactBook cBook) {
         if (cBook.getNumberOfContacts() != 0) {
             java.util.Iterator<Contact> it = cBook.listContacts();
-            while(it.hasNext())
+            while (it.hasNext())
                 System.out.println(it.next());
-        }
-        else System.out.println(Main.BOOK_EMPTY);
+        } else System.out.println(Main.BOOK_EMPTY);
     }
 }
