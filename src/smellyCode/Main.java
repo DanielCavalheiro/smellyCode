@@ -1,3 +1,5 @@
+package smellyCode;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -6,6 +8,7 @@ import cbook.ContactBook;
 import cbook.ContactBookInList;
 import exceptions.ContactAlreadyExistsException;
 import exceptions.ContactDoesNotExistException;
+
 
 /**
  * Main program for the application ContactBook.

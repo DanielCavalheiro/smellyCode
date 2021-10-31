@@ -1,3 +1,4 @@
+package smellyCode;
 /**
  * @author Miguel Goulao
  *
