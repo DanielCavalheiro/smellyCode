@@ -1,4 +1,4 @@
-package smellyCode;
+package app;
 /**
  * @author Miguel Goulao
  *
