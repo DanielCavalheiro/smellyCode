@@ -46,40 +46,27 @@ public class Main {
      * @param args - arguments for executing the program. Not used in this program.
      */
     public static void main(String[] args) {
-        Main.execute_commands();
+        Main.executeCommands();
     }
 
     /**
      * Command interpreter.
      */
-    private static void execute_commands() {
+    private static void executeCommands() {
         Scanner in = new Scanner(System.in);
         ContactBook cBook = new ContactBookInList();
         Command comm = readCommand(in);
         while (!comm.equals(Command.QUIT)){
             switch (comm) {
-                case ADD_CONTACT:
-                    addContact(in,cBook);
-                    break;
-                case REMOVE_CONTACT:
-                    deleteContact(in,cBook);
-                    break;
-                case GET_PHONE:
-                    getPhone(in,cBook);
-                    break;
-                case GET_EMAIL:
-                    getEmail(in,cBook);
-                    break;
-                case SET_PHONE:
-                    setPhone(in,cBook);
-                    break;
-                case SET_EMAIL:
-                    setEmail(in,cBook);
-                    break;
-                case LIST_CONTACTS:
-                    listAllContacts(cBook);
-                    break;
-                default:
+                case ADD_CONTACT -> addContact(in, cBook);
+                case REMOVE_CONTACT -> deleteContact(in, cBook);
+                case GET_PHONE -> getPhone(in, cBook);
+                case GET_EMAIL -> getEmail(in, cBook);
+                case SET_PHONE -> setPhone(in, cBook);
+                case SET_EMAIL -> setEmail(in, cBook);
+                case LIST_CONTACTS -> listAllContacts(cBook);
+                default -> {
+                }
             }
             System.out.println();
             comm = readCommand(in);
