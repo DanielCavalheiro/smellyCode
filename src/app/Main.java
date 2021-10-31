@@ -17,13 +17,11 @@ public class Main {
     private static final String NOT_A_VALID_PHONE_NUMBER = "Not a valid phone number.";
 
     // Constants for defining the user feedback
-    public static final String CONTACT_EXISTS = "Contact already exists.";
     public static final String NAME_NOT_EXIST = "Contact does not exist.";
     public static final String CONTACT_ADDED = "Contact added.";
     public static final String CONTACT_REMOVED = "Contact removed.";
     public static final String CONTACT_UPDATED = "Contact updated.";
     public static final String BOOK_EMPTY = "Contact book empty.";
-    public static final String ERROR = "Unknown command.";
     public static final String EXIT = "Goodbye!";
 
     // Enumeration for defining Commands
